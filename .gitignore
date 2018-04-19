@@ -1,4 +1,5 @@
 *.csv
 *.zip
 
-_pychache_/
+__pychache__/
+data/
