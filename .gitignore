@@ -1,4 +1,4 @@
-data/yellow/*.csv
+data/yellow/
 *.zip
 
 __pychache__/
