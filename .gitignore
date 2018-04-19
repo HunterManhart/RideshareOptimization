@@ -1,0 +1,4 @@
+*.csv
+*.zip
+
+_pychache_/
