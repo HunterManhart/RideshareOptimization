@@ -64,24 +64,25 @@ def futureEarnings(i, b, t):
     if not np.isnan(earnings[i,b-1,t]):
         return earnings[i,b-1,t]
 
-    #       Expected earnings from this zone 
-    #   Robust Earnings (nonlinear minimization)
-    exp = R[t,i,:] + v(i, b, t)
-    objective = lambda p: np.dot( p, exp )
-    count[count == 0] = 1
-    constraint = build_constraint(count[t,i,:], zones, .9)
+    if sys.argv[-1] == "robust":
+        #       Expected earnings from this zone 
+        #   Robust Earnings (nonlinear minimization)
+        exp = R[t,i,:] + v(i, b, t)
+        objective = lambda p: np.dot( p, exp )
+        count[count == 0] = 1
+        constraint = build_constraint(count[t,i,:], zones, .9)
 
-    con1 = {'type': 'eq', 'fun': constraint} 
-    con2 = {'type': 'eq', 'fun': lambda p: np.sum(p) - 1} 
-    con3 = {'type': 'ineq', 'fun': lambda p: p}
-    cons = ([con1, con2, con3])
-    solution = minimize(objective, F[t,i,:], constraints=cons)
-    print(solution.x)
-    a0 = solution.fun
-    print(a0)
-
-    #   Not robust earnings
-    # a0 = np.dot( F[t,i,:], R[t,i,:] + v(i, b, t) )
+        con1 = {'type': 'eq', 'fun': constraint} 
+        con2 = {'type': 'eq', 'fun': lambda p: np.sum(p) - 1} 
+        con3 = {'type': 'ineq', 'fun': lambda p: p}
+        cons = ([con1, con2, con3])
+        solution = minimize(objective, F[t,i,:], constraints=cons)
+        print(solution.x)
+        a0 = solution.fun
+        print(a0)
+    else:
+        #   Not robust earnings
+        a0 = np.dot( F[t,i,:], R[t,i,:] + v(i, b, t) )
 
     #       Go home and wait till later
     if i == home:
