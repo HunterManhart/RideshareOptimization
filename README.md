@@ -8,10 +8,15 @@ How to run on your local machine
 
 ### Prerequisites
 
-You'll need Python3:
+You'll need Python3 and pip:
 ```
-brew install postgres
+brew install python
+python get-pip.py
+```
 
+And some Python packages:
+```
+pip install numpy scipy pandas psycopg2-binary
 ```
 
 And PostgreSQL:
