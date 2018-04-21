@@ -9,7 +9,7 @@ the top for what is currently a short-term project
 import psycopg2 as pg
 
 #   Database connection
-conn = pg.connect(database="test")
+conn = pg.connect(database="rideshare")
 
 #   Cursor to preform db operations
 cur = conn.cursor()
